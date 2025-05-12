@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error 404 - Página no encontrada</title>
+     <link href="/css/bootstrap.min.css" rel="stylesheet">
+     <link rel="stylesheet" th:href="@{/css/error404.css}">
+    
+</head>
+<body>
+    
+   <div class="container">
+        <img th:src="@{/img/ups.jpg}" alt="Página no encontrada" style="max-width: 300px; margin-bottom: 20px;">
+        <h1>¡Oops! Error 404</h1>
+        
+        <h1>Algo salio mal</h1>
+        <ul>
+            <li><a th:href="@{/}">Volver a la página principal</a></li>
+            
+        </ul>
+        <p>Si el problema persiste, por favor contacta al administrador del sitio.</p>
+    </div>    
+    
+
+   
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

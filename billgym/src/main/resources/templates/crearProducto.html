@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Producto</title>
+     <link href="/css/bootstrap.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+</head>
+<body class="pb-5">
+	<div th:insert="~{home :: navbar}"></div>
+
+
+	<div class="container mt-5 d-flex justify-content-center mb-5">
+		<div class="form-container col-md-8">
+			<h1 class="text-primary text-center mb-4">Nuevo Usuario</h1>
+			
+			<form th:action="@{/productos/guardar}" th:object="${producto}"
+				method="post">
+				<div class="mb-3">
+					<label for="nombre" class="form-label">Nombre</label> <input
+						type="text" id="nombre" th:field="*{nombre}"
+						class="form-control" placeholder="" required>
+				</div>
+				<div class="mb-3">
+					<label for="descripcion" class="form-label">Descripcion</label> <input
+						type="text" id="descripcion" th:field="*{descripcion}"
+						class="form-control" placeholder="" required>
+				</div>
+				<div class="mb-3">
+					<label for="precio_publico" class="form-label">P/Publico</label> <input type="text"
+						id="precio_publico" th:field="*{precio_publico}" class="form-control" placeholder=""
+						required>
+				</div>
+				<div class="mb-3">
+					<label for="stock" class="form-label">Stock</label> <input type="number" id="stock"
+						th:field="*{stock}" class="form-control" placeholder=""
+						required>
+				</div>
+				<div class="mb-3">
+					<label for="fecha_vencimiento" class="form-label">F/vencimiento</label> <input
+						type="date" id="fecha_vencimiento" th:field="*{fecha_vencimiento}"
+						class="form-control" placeholder="" required>
+				</div>
+				<div class="mb-3">
+					<label for="precio_compra" class="form-label">P/Compra</label> <input
+						type="text" id="precio_compra" th:field="*{precio_compra}"
+						class="form-control" placeholder="" required>
+				</div>
+				
+				<div class="d-grid">
+					<button type="submit" class="btn btn-primary btn-sm">Guardar</button>
+				</div>
+
+
+			</form>
+		</div>
+	</div>
+
+
+
+
+
+	<div th:insert="~{home :: footer}"></div>
+	<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

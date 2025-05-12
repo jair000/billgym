@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Mi Página</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body class="d-flex flex-column vh-100">
+	<div th:insert="~{home :: navbar}"></div>
+
+	<main class="flex-grow-1 container mt-5">
+		<div class="container mt-5 d-flex justify-content-center">
+			<div class="form-container col-md-8">
+				<h1>Visión</h1>
+				<p></p>
+
+				<h1>Misión</h1>
+				<p></p>
+
+				<h1>Valores</h1>
+				<p></p>
+			</div>
+		</div>
+
+
+
+
+
+	</main>
+	<div th:insert="~{home :: footer}"></div>
+
+
+	<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

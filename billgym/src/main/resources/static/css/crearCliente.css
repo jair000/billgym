@@ -1,0 +1,8 @@
+@charset "UTF-8";
+@media (max-width: 768px) { /* Pantallas medianas y más pequeñas */
+    .form-container {
+        width: 95% !important; /* Ocupar casi todo el ancho */
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}

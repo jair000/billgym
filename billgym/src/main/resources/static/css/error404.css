@@ -1,0 +1,43 @@
+@charset "UTF-8";
+body {
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+.container {
+    background-color: #000000;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    
+}
+h1 {
+    color: #e74c3c; /* Un color rojo llamativo */
+    margin-bottom: 10px;
+}
+p {
+    color: #FFF;
+    margin-bottom: 20px;
+}
+a {
+    color: #3498db; /* Un color azul atractivo */
+    text-decoration: none;
+}
+h1:hover {    
+    color: red;
+    text-shadow: 1px 2px 30px white;
+}
+p:hover {    
+      
+    text-shadow: 1px 1px 2px rgba(255, 0, 0, 0.7)
+}
+a:hover {  	
+    color: blue;
+}
+
+
