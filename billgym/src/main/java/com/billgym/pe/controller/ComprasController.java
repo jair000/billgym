@@ -7,9 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.billgym.pe.entity.Compras;
+import com.billgym.pe.entity.Producto;
 import com.billgym.pe.service.ComprasService;
 
 @Controller
@@ -41,6 +44,7 @@ public class ComprasController {
 	
 	
 	//ACTUALIZAR COMPRAS
+	@PostMapping("/compras/actualizar")
 	public String actualizaCompras(@ModelAttribute("compras") Compras compras, RedirectAttributes redirectAttributes) {
 		comprasService.guardaCompras(compras);
 		redirectAttributes.addFlashAttribute("mensaje"," 'Compras Actualizado correctamente: '");
@@ -49,11 +53,34 @@ public class ComprasController {
 	
 	
 	//CREAR COMPRAS
+	@GetMapping("/compras/crear")
+	public String crearCompras(Model model) {
+		model.addAttribute("compra", new Producto());
+		return"crearCompras";
+	}
 	
 	//GUARDAR COMPRAS
+	@PostMapping("/compras/guardar")
+	public String guardarCompras(@ModelAttribute("compra") Compras compras,RedirectAttributes redirectAttributes) {
+		comprasService.guardaCompras(compras);
+		redirectAttributes.addFlashAttribute("mensaje", " Compras guardado con exito");
+		return"redirect:/compras";
+	}
+	
 	
 	//ELIMINAR COMPRAS
+	@GetMapping("/compras/eliminar/{id_compras}")
+	public String eliminaCompras(@PathVariable("id_compras")Integer id_compras ) {
+		comprasService.eliminarCompras(id_compras);
+		return"redirect:/compras";
+	}
 	
 	//BUSCAR COMPRAS POR PRODUCTO
+	
+	public String buscarComprasPorProducto(@RequestParam("buscar")String terminoBusqueda, Model model ) {
+		List<Compras> resultados = comprasService.buscar(terminoBusqueda);
+		model.addAttribute("compras", resultados);
+		return"compras";
+	}
 
 }
