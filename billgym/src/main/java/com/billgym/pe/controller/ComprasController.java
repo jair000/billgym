@@ -27,8 +27,8 @@ public class ComprasController {
 	//LISTAR COMPRAS
 	@GetMapping("/compras")
 	public String obtenerCompras(Model model) {
-		List<Compras> compra = comprasService.listarcompra();
-		model.addAttribute("compra", compra);
+		List<Compras> compras = comprasService.listarcompra();
+		model.addAttribute("compras", compras);
 		return"compras";
 		
 	}

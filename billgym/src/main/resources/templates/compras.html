@@ -13,7 +13,7 @@
 	<main  class="flex-grow-1 container mt-5" style="display: flex; flex-direction: column;">
 
 		<div class="container mt-5">
-			<h2 class="mb-4">Lista de Compras</h2>
+			<h2 class="mb-4">Lista de Compras</h2>  // FALTA SOLUCIONAR LA VICIVILIDAD DEL DATO EN NAVEGADOR
 
 			<!-- Enlace para crear un nuevo usuario -->
 			<a th:href="@{/compras/agregar}" class="btn btn-success mb-3">Crear
@@ -47,15 +47,15 @@
 						<td th:text="${compra.id_compras}"></td>
 						<td th:text="${compra.id_producto}"></td>
 						<td th:text="${compra.cantidad}"></td>
-						<td th:text="${compra.precio_unitari}"></td>
+						<td th:text="${compra.precio_unitario}"></td>
 						<td th:text="${compra.fecha_compra}"></td>
 						<td th:text="${compra.id_provedor}"></td>					
 
 
-						<td><a th:href="@{/compras/edit/{id}(id=${compra.id})}"
-							class="btn  btn-sm"><i class="bi bi-gear-fill "
+						<td><a th:href="@{/compras/edit/{id_compras}(id_compras=${id_compras})}"
+							class="btn  btn-sm"><i class="bi bi-pencil-fill "
 								style="color: black; font-size: 1.5em;"></i></a> <a
-							th:href="@{/compras/eliminar/{id}(id=${compra.id})}"
+							th:href="@{/compras/eliminar/{id_compras}(id_compras=${compra.id_compras})}"
 							class="btn btn-sm"
 							onclick="return confirm('¿Estás seguro que deseas eliminar este Compra?');"><i
 								class="bi bi-trash-fill" style="color: red; font-size: 1.5em;"></i></a>
