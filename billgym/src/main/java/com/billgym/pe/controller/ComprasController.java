@@ -55,8 +55,8 @@ public class ComprasController {
 	//CREAR COMPRAS
 	@GetMapping("/compras/crear")
 	public String crearCompras(Model model) {
-		model.addAttribute("compra", new Producto());
-		return"crearCompras";
+		model.addAttribute("compra", new Compras());
+		return"crearCompra";
 	}
 	
 	//GUARDAR COMPRAS
@@ -76,7 +76,7 @@ public class ComprasController {
 	}
 	
 	//BUSCAR COMPRAS POR PRODUCTO
-	
+	@GetMapping("/compras/buscar")
 	public String buscarComprasPorProducto(@RequestParam("buscar")String terminoBusqueda, Model model ) {
 		List<Compras> resultados = comprasService.buscar(terminoBusqueda);
 		model.addAttribute("compras", resultados);

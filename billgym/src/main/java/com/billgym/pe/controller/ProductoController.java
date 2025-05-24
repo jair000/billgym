@@ -35,7 +35,8 @@ public class ProductoController {
 	
 	//EDITAR PRODUCTO
 	@GetMapping("/productos/edit/{id_producto}")
-	public String editarProducto(@PathVariable("id_producto")Integer id_producto, Model model) {
+	public String editarProducto(@PathVariable("id_producto")
+		Integer id_producto, Model model) {
 		Producto producto = productosService.obtenerProducto(id_producto);
 		model.addAttribute("producto",producto);
 		return "editarProducto";

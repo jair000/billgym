@@ -13,10 +13,10 @@
 	<main  class="flex-grow-1 container mt-5" style="display: flex; flex-direction: column;">
 
 		<div class="container mt-5">
-			<h2 class="mb-4">Lista de Compras</h2>  // FALTA SOLUCIONAR LA VICIVILIDAD DEL DATO EN NAVEGADOR
+			<h2 class="mb-4">Lista de Compras</h2> 
 
 			<!-- Enlace para crear un nuevo usuario -->
-			<a th:href="@{/compras/agregar}" class="btn btn-success mb-3">Crear
+			<a th:href="@{/compras/crear}" class="btn btn-success mb-3">Crear
 				+</a>
 
 			<!-- PARA BUSCAR USIARIOS-->
@@ -24,7 +24,7 @@
 				<form class="d-flex" th:action="@{/compras/buscar}" method="get">
 					<div class="col-md-9">
 						<input class="form-control me-2" type="search"
-							placeholder="" aria-label="Search" name="buscar">
+							placeholder="Producto" aria-label="Search" name="buscar">
 					</div>
 					<button class="btn btn-outline-success" type="submit">buscar</button>
 				</form>
@@ -34,7 +34,8 @@
 				<thead>
 					<tr>
 						<th>Id</th>
-						<th>Id Producto</th>
+						<th>Id/Producto</th>
+						<th>Producto</th>
 						<th>Cantidad</th>
 						<th>Precio/Unitario</th>
 						<th>Fecha</th>
@@ -46,13 +47,14 @@
 					<tr th:each="compra : ${compras}">
 						<td th:text="${compra.id_compras}"></td>
 						<td th:text="${compra.id_producto}"></td>
+						<td th:text="${compra.producto.nombre}"></td>
 						<td th:text="${compra.cantidad}"></td>
 						<td th:text="${compra.precio_unitario}"></td>
 						<td th:text="${compra.fecha_compra}"></td>
 						<td th:text="${compra.id_provedor}"></td>					
 
 
-						<td><a th:href="@{/compras/edit/{id_compras}(id_compras=${id_compras})}"
+						<td><a th:href="@{/compras/edit/{id_compras}(id_compras=${compra.id_compras})}"
 							class="btn  btn-sm"><i class="bi bi-pencil-fill "
 								style="color: black; font-size: 1.5em;"></i></a> <a
 							th:href="@{/compras/eliminar/{id_compras}(id_compras=${compra.id_compras})}"
