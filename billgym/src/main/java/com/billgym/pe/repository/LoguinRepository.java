@@ -1,0 +1,15 @@
+package com.billgym.pe.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.billgym.pe.entity.Loguin;
+
+public interface LoguinRepository extends JpaRepository<Loguin, Integer> {
+	@Query("SELECT l FROM Loguin l JOIN l.usuarioDato u WHERE u.dni = :dni")
+	List<Loguin> buscarPorDniUsuario(@Param("dni")Integer usuario);
+
+}
