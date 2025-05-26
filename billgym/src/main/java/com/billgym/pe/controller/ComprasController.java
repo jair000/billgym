@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.billgym.pe.entity.Compras;
-import com.billgym.pe.entity.Producto;
+
 import com.billgym.pe.service.ComprasService;
 
 @Controller
