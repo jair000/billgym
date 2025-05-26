@@ -10,6 +10,6 @@ import com.billgym.pe.entity.Loguin;
 
 public interface LoguinRepository extends JpaRepository<Loguin, Integer> {
 	@Query("SELECT l FROM Loguin l JOIN l.usuarioDato u WHERE u.dni = :dni")
-	List<Loguin> buscarPorDniUsuario(@Param("dni")Integer usuario);
+	List<Loguin> buscarPorDniUsuario(@Param("dni")String usuario);
 
 }
