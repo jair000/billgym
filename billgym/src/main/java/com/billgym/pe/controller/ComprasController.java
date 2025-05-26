@@ -17,7 +17,7 @@ import com.billgym.pe.service.ComprasService;
 
 @Controller
 public class ComprasController {
-													//FALTA HTML
+													
     private final ComprasService comprasService;
 	
 	public ComprasController(ComprasService comprasService) {
