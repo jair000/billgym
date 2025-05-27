@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>Mi Página</title>
+<title>Bill Gym</title>
 <link href="/css/bootstrap.min.css" rel="stylesheet">
-
-
-
-
 
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -39,13 +36,30 @@
 						th:href="@{/productos}">Productos</a></li>
 					<li class="nav-item"><a class="nav-link"
 						th:href="@{/maquinas}">Maquinas</a></li>
-					
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/delta}">Delta</a></li>
+
+					<li class="nav-item"><a class="nav-link" th:href="@{/delta}">Delta</a></li>
 
 
 				</ul>
-				
+<!-- 				<div class="d-flex ms-auto"> -->
+<!-- 					Si NO está autenticado: botón de login -->
+<!-- 					<div sec:authorize="!isAuthenticated()"> -->
+<!-- 						<a th:href="@{/loguin}" class="btn btn-outline-light"> <i -->
+<!-- 							class="bi bi-person"></i> Iniciar Sesión -->
+<!-- 						</a> -->
+<!-- 					</div> -->
+
+<!-- 					Si SÍ está autenticado: mostrar nombre y botón de logout -->
+<!-- 					<div sec:authorize="isAuthenticated()" -->
+<!-- 						class="d-flex align-items-center"> -->
+<!-- 						<span class="text-light me-2"> <i -->
+<!-- 							class="bi bi-person-circle"></i> <strong -->
+<!-- 							th:text="${#authentication.name}">Usuario</strong> -->
+<!-- 						</span> <a th:href="@{/logout}" class="btn btn-outline-danger">Cerrar -->
+<!-- 							sesión</a> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
 			</div>
 		</div>
 	</nav>
@@ -62,29 +76,30 @@
 	<!-- FOOTER -->
 
 
-	
-		<footer th:fragment="footer" class="bg-dark py-3 mt-auto">
-			<div class="container">
-				<div class="row align-items-center">
-					<div class="col-md-6 text-center text-md-start">
-						<p class="mb-0 text-light">&copy; 2025 BillGym. Todos los
-							derechos reservados.</p>
-					</div>
-					<div class="col-md-6 text-center text-md-end">
-						<ul class="list-inline mb-0">
-							<li class="list-inline-item ms-3"><a
-								href="/terminos-y-condiciones" class="text-light">Soporte Tecnico</a></li>
-							<li class="list-inline-item"><a
-								href="/politica-de-privacidad" class="text-light">Política
-									de Privacidad</a></li>
-							<li class="list-inline-item ms-3"><a
-								href="/terminos-y-condiciones" class="text-light">Términos y
-									Condiciones</a></li>
-						</ul>
-					</div>
+
+	<footer th:fragment="footer" class="bg-dark py-3 mt-auto">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-6 text-center text-md-start">
+					<p class="mb-0 text-light">&copy; 2025 BillGym. Todos los
+						derechos reservados.</p>
+				</div>
+				<div class="col-md-6 text-center text-md-end">
+					<ul class="list-inline mb-0">
+						<li class="list-inline-item ms-3"><a
+							href="/terminos-y-condiciones" class="text-light">Soporte
+								Tecnico</a></li>
+						<li class="list-inline-item"><a
+							href="/politica-de-privacidad" class="text-light">Política de
+								Privacidad</a></li>
+						<li class="list-inline-item ms-3"><a
+							href="/terminos-y-condiciones" class="text-light">Términos y
+								Condiciones</a></li>
+					</ul>
 				</div>
 			</div>
-		</footer>
+		</div>
+	</footer>
 
 
 

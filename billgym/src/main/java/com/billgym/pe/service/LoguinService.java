@@ -27,7 +27,7 @@ public class LoguinService {
 	}	
 	
 	//METODO PARA ACTUALISAR lOGUIN
-	public void gurdarLoguin(Loguin loguin) {
+	public void guardarLoguin(Loguin loguin) {
 		loguinRepository.save(loguin);
 		
 	}

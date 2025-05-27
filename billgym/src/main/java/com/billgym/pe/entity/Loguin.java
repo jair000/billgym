@@ -2,7 +2,7 @@ package com.billgym.pe.entity;
 
 
 
-import java.util.Arrays;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,7 +29,7 @@ public class Loguin {
 	private String usuario;
 	
 	@Column(name="password")
-	private char[] password;
+	private String password;
 	
 	//RELACION ENTRE ENTIDADES 
 	//RELACION CON ENTIDAD  USUARIO
@@ -41,7 +41,7 @@ public class Loguin {
 		super();
 	}
 
-	public Loguin(int id_loguin, int id_usuario, String usuario, char[] password, Usuario usuarioDato) {
+	public Loguin(int id_loguin, int id_usuario, String usuario, String password, Usuario usuarioDato) {
 		super();
 		this.id_loguin = id_loguin;
 		this.id_usuario = id_usuario;
@@ -74,11 +74,11 @@ public class Loguin {
 		this.usuario = usuario;
 	}
 
-	public char[] getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(char[] password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
@@ -93,8 +93,7 @@ public class Loguin {
 	@Override
 	public String toString() {
 		return "Loguin [id_loguin=" + id_loguin + ", id_usuario=" + id_usuario + ", usuario=" + usuario + ", password="
-				+ Arrays.toString(password) + ", usuarioDato=" + usuarioDato + "]";
+				+ password + ", usuarioDato=" + usuarioDato + "]";
 	}
 	
-
 }
