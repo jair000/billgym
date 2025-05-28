@@ -27,50 +27,50 @@ public class LoguinController {
 	}
 	
 	//METODO PARA LISTAR USER LOGUIN
-	@GetMapping("/login")
+	@GetMapping("/loguinTabla")
 	public String obtenerLoguin(Model model) {
 		List<Loguin> loguin = loguinService.listarLoguin();
-		model.addAttribute("longin",loguin);
-		return"loguin";
+		model.addAttribute("loguins",loguin);
+		return"loginTabla";
 	}
 	
 	//EDITAR LOGUIN
-	@GetMapping("/login/edit/{id_loguin}")
+	@GetMapping("/loguin/edit/{id_loguin}")
 	public String editarLoguin(@PathVariable("id_loguin")Integer id_loguin, Model model) {
 		Loguin loguin = loguinService.obtenerLoguin(id_loguin);
-		model.addAttribute("login",loguin);
+		model.addAttribute("loguin",loguin);
 		return"editarLogin";
 	}
 	
 	// ACTUALIZAR LOGUIN
-	@PostMapping("/login/actualizar")
-	public String actualizarLoguin(@ModelAttribute("id_loguin")Loguin loguin, RedirectAttributes redirectAttributes) {
+	@PostMapping("/loguin/actualizar")
+	public String actualizarLoguin(@ModelAttribute("loguin")Loguin loguin, RedirectAttributes redirectAttributes) {
 		loguinService.guardarLoguin(loguin);
 		redirectAttributes.addFlashAttribute("mensaje","loguinactualizada correctamente");
-		return"redirect:/login";
+		return"redirect:/loginTabla";
 	}
 	
 	
 	//CREAR LOGUIN
-	@GetMapping("/login/crear")
+	@GetMapping("/loguin/crear")
 	public String crearLoguin(Model model) {
-		model.addAttribute("login", new Loguin());
+		model.addAttribute("loguin", new Loguin());
 		return"crearLoguin";
 	}
 	
 	//GUARDAR LOGUIN
-	@PostMapping("/login/guardar")
+	@PostMapping("/loguin/guardar")
 	public String guardarLoguin(@ModelAttribute("loguin")Loguin loguin,RedirectAttributes redirectAttributes) {
 		loguinService.guardarLoguin(loguin);
 		redirectAttributes.addFlashAttribute("mensaje","Loguin User guardado correctamente :");
-		return"redirect:/login";
+		return"redirect:/loginTabla";
 	}
 	
 	//ELIMINAR LOGUIN
-	@GetMapping("/login/eliminar/{id_loguin}")
+	@GetMapping("/loguin/eliminar/{id_loguin}")
 	public String eliminarLoguin(@PathVariable("id_loguin")Integer id_loguin) {
 		loguinService.eliminar(id_loguin);
-		return"redirect:/login";
+		return"redirect:/loginTabla";
 	}
 	
 	//BUSCAR USER LOGUIN POR DNI
@@ -78,7 +78,7 @@ public class LoguinController {
 	public String buscarUsuarioPorDni(@RequestParam("buscar")String terminoBusqueda, Model model) {
 		List<Loguin> resultados = loguinService.buscar(terminoBusqueda);
 		model.addAttribute("loguin",resultados);
-		return"login";
+		return"loginTabla";
 	}
 
 }

@@ -13,7 +13,7 @@
 	<main  class="flex-grow-1 container mt-5" style="display: flex; flex-direction: column;">
 
 		<div class="container mt-5">
-			<h2 class="mb-4">Lista de Compras</h2> 
+			<h2 class="mb-4">Lista de Usuarios para Loguin</h2> 
 
 			<!-- Enlace para crear un nuevo usuario -->
 			<a th:href="@{/loguin/crear}" class="btn btn-success mb-3">Crear
@@ -21,7 +21,7 @@
 
 			<!-- PARA BUSCAR USIARIOS-->
 			<div class="d-flex justify-content-end">
-				<form class="d-flex" th:action="@{/loguin/buscar}" method="get">
+				<form class="d-flex" th:action="@{/login/buscar}" method="get">
 					<div class="col-md-9">
 						<input class="form-control me-2" type="search"
 							placeholder="Producto" aria-label="Search" name="buscar">
@@ -41,17 +41,17 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="loguin : ${loguin}">
+					<tr th:each="loguin : ${loguins}">
 						<td th:text="${loguin.id_loguin}"></td>
 						<td th:text="${loguin.id_usuario}"></td>
-						<td th:text="${loguin.usuarioDato.nombre}"></td>
+						<td th:text="${loguin.usuarioDato.nombres}"></td>
 						<td th:text="${loguin.usuario}"></td>
 						
 
-						<td><a th:href="@{/loguin/edit/{id_loguin}(id_loguin=${compra.id_loguin})}"
+						<td><a th:href="@{/loguin/edit/{id_loguin}(id_loguin=${loguin.id_loguin})}"
 							class="btn  btn-sm"><i class="bi bi-pencil-fill "
 								style="color: black; font-size: 1.5em;"></i></a> <a
-							th:href="@{/loguin/eliminar/{id_loguin}(id_loguin=${compra.id_loguin})}"
+							th:href="@{/loguin/eliminar/{id_loguin}(id_loguin=${loguin.id_loguin})}"
 							class="btn btn-sm"
 							onclick="return confirm('¿Estás seguro que deseas eliminar este Compra?');"><i
 								class="bi bi-trash-fill" style="color: red; font-size: 1.5em;"></i></a>

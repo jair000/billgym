@@ -14,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="loguin")
+@Table(name="login")
 public class Loguin {
 	
 	@Id
@@ -34,7 +34,7 @@ public class Loguin {
 	//RELACION ENTRE ENTIDADES 
 	//RELACION CON ENTIDAD  USUARIO
 	@ManyToOne
-	@JoinColumn(name = "id",insertable = false, updatable = false)
+	@JoinColumn(name = "id_usuario",insertable = false, updatable = false)
 	private Usuario usuarioDato;
 
 	public Loguin() {
