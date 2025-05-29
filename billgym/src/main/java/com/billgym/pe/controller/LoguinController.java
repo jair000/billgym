@@ -35,7 +35,7 @@ public class LoguinController {
 	}
 	
 	//EDITAR LOGUIN
-	@GetMapping("/loguin/edit/{id_loguin}")
+	@GetMapping("/loguinTabla/edit/{id_loguin}")
 	public String editarLoguin(@PathVariable("id_loguin")Integer id_loguin, Model model) {
 		Loguin loguin = loguinService.obtenerLoguin(id_loguin);
 		model.addAttribute("loguin",loguin);
@@ -43,42 +43,42 @@ public class LoguinController {
 	}
 	
 	// ACTUALIZAR LOGUIN
-	@PostMapping("/loguin/actualizar")
+	@PostMapping("/loguinTabla/actualizar")
 	public String actualizarLoguin(@ModelAttribute("loguin")Loguin loguin, RedirectAttributes redirectAttributes) {
 		loguinService.guardarLoguin(loguin);
 		redirectAttributes.addFlashAttribute("mensaje","loguinactualizada correctamente");
-		return"redirect:/loginTabla";
+		return"redirect:/loguinTabla";
 	}
 	
 	
 	//CREAR LOGUIN
-	@GetMapping("/loguin/crear")
+	@GetMapping("/loguinTabla/crear")
 	public String crearLoguin(Model model) {
 		model.addAttribute("loguin", new Loguin());
 		return"crearLoguin";
 	}
 	
 	//GUARDAR LOGUIN
-	@PostMapping("/loguin/guardar")
+	@PostMapping("/loguinTabla/guardar")
 	public String guardarLoguin(@ModelAttribute("loguin")Loguin loguin,RedirectAttributes redirectAttributes) {
 		loguinService.guardarLoguin(loguin);
 		redirectAttributes.addFlashAttribute("mensaje","Loguin User guardado correctamente :");
-		return"redirect:/loginTabla";
+		return"redirect:/loguinTabla";
 	}
 	
 	//ELIMINAR LOGUIN
-	@GetMapping("/loguin/eliminar/{id_loguin}")
+	@GetMapping("/loguinTabla/eliminar/{id_loguin}")
 	public String eliminarLoguin(@PathVariable("id_loguin")Integer id_loguin) {
 		loguinService.eliminar(id_loguin);
-		return"redirect:/loginTabla";
+		return"redirect:/loguinTabla";
 	}
 	
 	//BUSCAR USER LOGUIN POR DNI
-	@GetMapping("/login/buscar")
+	@GetMapping("/loguinTabla/buscar")
 	public String buscarUsuarioPorDni(@RequestParam("buscar")String terminoBusqueda, Model model) {
 		List<Loguin> resultados = loguinService.buscar(terminoBusqueda);
-		model.addAttribute("loguin",resultados);
-		return"loginTabla";
+		model.addAttribute("loguins",resultados);
+		return"loguinTabla";
 	}
 
 }
