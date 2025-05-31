@@ -46,31 +46,23 @@
 
 				</ul>
 				<div class="d-flex ms-auto">
-					<!-- Mostrar solo el ícono de persona (aún sin funcionalidad) -->
-					<a href="loguin" class="btn btn-outline-light"> <i
-						class="bi bi-person"></i>
-					</a>
+					<!-- Mostrar nombre y botón "Cerrar sesión" solo si está autenticado -->
+					<div sec:authorize="isAuthenticated()"
+						class="d-flex align-items-center">
+						<span class="text-light me-2"> <i
+							class="bi bi-person-circle"></i> <strong
+							sec:authentication="name">Usuario</strong>
+						</span> <a th:href="@{/logout}" class="btn btn-outline-danger">Cerrar
+							sesión</a>
+					</div>
+
+					<!-- Mostrar botón "Iniciar Sesión" solo si NO está autenticado -->
+					<div sec:authorize="!isAuthenticated()"
+						class="d-flex align-items-center">
+						<a th:href="@{/loguin}" class="btn btn-outline-success">Iniciar
+							Sesión</a>
+					</div>
 				</div>
-
-				<!-- 				<div class="d-flex ms-auto"> -->
-				<!-- 					Si NO está autenticado: botón de login -->
-				<!-- 					<div sec:authorize="!isAuthenticated()"> -->
-				<!-- 						<a th:href="@{/loguin}" class="btn btn-outline-light"> <i -->
-				<!-- 							class="bi bi-person"></i> Iniciar Sesión -->
-				<!-- 						</a> -->
-				<!-- 					</div> -->
-
-				<!-- 					Si SÍ está autenticado: mostrar nombre y botón de logout -->
-				<!-- 					<div sec:authorize="isAuthenticated()" -->
-				<!-- 						class="d-flex align-items-center"> -->
-				<!-- 						<span class="text-light me-2"> <i -->
-				<!-- 							class="bi bi-person-circle"></i> <strong -->
-				<!-- 							th:text="${#authentication.name}">Usuario</strong> -->
-				<!-- 						</span> <a th:href="@{/logout}" class="btn btn-outline-danger">Cerrar -->
-				<!-- 							sesión</a> -->
-				<!-- 					</div> -->
-				<!-- 				</div> -->
-
 			</div>
 		</div>
 	</nav>

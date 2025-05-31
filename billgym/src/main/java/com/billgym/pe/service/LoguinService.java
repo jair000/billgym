@@ -42,5 +42,11 @@ public class LoguinService {
 	 public void eliminar(Integer id_loguin) {
 		 loguinRepository.deleteById(id_loguin);		
 	}
+	
+	 
+	//VALIDAR USUARIO Y CONTRASEÑA
+	 public Loguin validarCredenciales(String usuario, String password) {
+		 return loguinRepository.findByUsuarioAndPassword(usuario, password);
+	 }
 
 }

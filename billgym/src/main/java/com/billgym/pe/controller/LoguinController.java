@@ -15,8 +15,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.billgym.pe.entity.Loguin;
 import com.billgym.pe.service.LoguinService;
 
+import jakarta.servlet.http.HttpSession;
 
-									//FALTA HTML
+
+
+						
 @Controller
 public class LoguinController {
 	// CONSTRUCTOR 
@@ -79,6 +82,35 @@ public class LoguinController {
 		List<Loguin> resultados = loguinService.buscar(terminoBusqueda);
 		model.addAttribute("loguins",resultados);
 		return"loguinTabla";
+	}
+	
+	//PARA LOGUEARSE EL USUARIO
+	@GetMapping("/login")
+	public String mostrarFormularioLoguin(Model model) {
+		model.addAttribute("loguin", new Loguin());
+		return"loginn";
+	}
+	
+	//PARA VALIDAR Y GUARDAR SESION DE LOGUIN
+	@PostMapping("/login")
+	public String loguin(@ModelAttribute("loguin")Loguin loguin,RedirectAttributes redirectAttributes, HttpSession session ) {
+		Loguin usuarioLogueado = loguinService.validarCredenciales(loguin.getUsuario(),loguin.getPassword());
+		
+		if(usuarioLogueado != null) {
+			session.setAttribute("usuarioLogueado", usuarioLogueado);
+			return"redirect:/home";			
+		}else {
+			redirectAttributes.addAttribute("error", "Usuario o contraseña incorrecta.");
+			return"redirect:/login";
+		}
+		
+	}
+	
+	//METODO PARA CERRAR SECION
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();//ELIMINA LOS ATIIBUS DE LA SESSION
+		return"redirect:/login";
 	}
 
 }
