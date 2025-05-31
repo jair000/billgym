@@ -45,24 +45,8 @@
 
 
 				</ul>
-				<div class="d-flex ms-auto">
-					<!-- Mostrar nombre y botón "Cerrar sesión" solo si está autenticado -->
-					<div sec:authorize="isAuthenticated()"
-						class="d-flex align-items-center">
-						<span class="text-light me-2"> <i
-							class="bi bi-person-circle"></i> <strong
-							sec:authentication="name">Usuario</strong>
-						</span> <a th:href="@{/logout}" class="btn btn-outline-danger">Cerrar
-							sesión</a>
-					</div>
+				
 
-					<!-- Mostrar botón "Iniciar Sesión" solo si NO está autenticado -->
-					<div sec:authorize="!isAuthenticated()"
-						class="d-flex align-items-center">
-						<a th:href="@{/loguin}" class="btn btn-outline-success">Iniciar
-							Sesión</a>
-					</div>
-				</div>
 			</div>
 		</div>
 	</nav>

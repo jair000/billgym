@@ -17,100 +17,84 @@ import com.billgym.pe.service.LoguinService;
 
 import jakarta.servlet.http.HttpSession;
 
-
-
-						
 @Controller
 public class LoguinController {
-	// CONSTRUCTOR 
-    private final LoguinService loguinService;
-	
+	// CONSTRUCTOR
+	private final LoguinService loguinService;
+
 	public LoguinController(LoguinService loguinService) {
-		this.loguinService = loguinService;		
+		this.loguinService = loguinService;
 	}
-	
-	//METODO PARA LISTAR USER LOGUIN
+
+	// METODO PARA LISTAR USER LOGUIN
 	@GetMapping("/loguinTabla")
 	public String obtenerLoguin(Model model) {
 		List<Loguin> loguin = loguinService.listarLoguin();
-		model.addAttribute("loguins",loguin);
-		return"loginTabla";
+		model.addAttribute("loguins", loguin);
+		return "loginTabla";
 	}
-	
-	//EDITAR LOGUIN
+
+	// EDITAR LOGUIN
 	@GetMapping("/loguinTabla/edit/{id_loguin}")
-	public String editarLoguin(@PathVariable("id_loguin")Integer id_loguin, Model model) {
+	public String editarLoguin(@PathVariable("id_loguin") Integer id_loguin, Model model) {
 		Loguin loguin = loguinService.obtenerLoguin(id_loguin);
-		model.addAttribute("loguin",loguin);
-		return"editarLogin";
+		model.addAttribute("loguin", loguin);
+		return "editarLogin";
 	}
-	
+
 	// ACTUALIZAR LOGUIN
 	@PostMapping("/loguinTabla/actualizar")
-	public String actualizarLoguin(@ModelAttribute("loguin")Loguin loguin, RedirectAttributes redirectAttributes) {
+	public String actualizarLoguin(@ModelAttribute("loguin") Loguin loguin, RedirectAttributes redirectAttributes) {
 		loguinService.guardarLoguin(loguin);
-		redirectAttributes.addFlashAttribute("mensaje","loguinactualizada correctamente");
-		return"redirect:/loguinTabla";
+		redirectAttributes.addFlashAttribute("mensaje", "loguinactualizada correctamente");
+		return "redirect:/loguinTabla";
 	}
-	
-	
-	//CREAR LOGUIN
+
+	// CREAR LOGUIN
 	@GetMapping("/loguinTabla/crear")
 	public String crearLoguin(Model model) {
 		model.addAttribute("loguin", new Loguin());
-		return"crearLoguin";
+		return "crearLoguin";
 	}
-	
-	//GUARDAR LOGUIN
+
+	// GUARDAR LOGUIN
 	@PostMapping("/loguinTabla/guardar")
-	public String guardarLoguin(@ModelAttribute("loguin")Loguin loguin,RedirectAttributes redirectAttributes) {
+	public String guardarLoguin(@ModelAttribute("loguin") Loguin loguin, RedirectAttributes redirectAttributes) {
 		loguinService.guardarLoguin(loguin);
-		redirectAttributes.addFlashAttribute("mensaje","Loguin User guardado correctamente :");
-		return"redirect:/loguinTabla";
+		redirectAttributes.addFlashAttribute("mensaje", "Loguin User guardado correctamente :");
+		return "redirect:/loguinTabla";
 	}
-	
-	//ELIMINAR LOGUIN
+
+	// ELIMINAR LOGUIN
 	@GetMapping("/loguinTabla/eliminar/{id_loguin}")
-	public String eliminarLoguin(@PathVariable("id_loguin")Integer id_loguin) {
+	public String eliminarLoguin(@PathVariable("id_loguin") Integer id_loguin) {
 		loguinService.eliminar(id_loguin);
-		return"redirect:/loguinTabla";
+		return "redirect:/loguinTabla";
 	}
-	
-	//BUSCAR USER LOGUIN POR DNI
+
+	// BUSCAR USER LOGUIN POR DNI
 	@GetMapping("/loguinTabla/buscar")
-	public String buscarUsuarioPorDni(@RequestParam("buscar")String terminoBusqueda, Model model) {
+	public String buscarUsuarioPorDni(@RequestParam("buscar") String terminoBusqueda, Model model) {
 		List<Loguin> resultados = loguinService.buscar(terminoBusqueda);
-		model.addAttribute("loguins",resultados);
-		return"loguinTabla";
+		model.addAttribute("loguins", resultados);
+		return "loguinTabla";
 	}
-	
-	//PARA LOGUEARSE EL USUARIO
+
+	// PARA LOGUEARSE EL USUARIO
 	@GetMapping("/login")
-	public String mostrarFormularioLoguin(Model model) {
-		model.addAttribute("loguin", new Loguin());
-		return"loginn";
-	}
-	
-	//PARA VALIDAR Y GUARDAR SESION DE LOGUIN
-	@PostMapping("/login")
-	public String loguin(@ModelAttribute("loguin")Loguin loguin,RedirectAttributes redirectAttributes, HttpSession session ) {
-		Loguin usuarioLogueado = loguinService.validarCredenciales(loguin.getUsuario(),loguin.getPassword());
-		
-		if(usuarioLogueado != null) {
-			session.setAttribute("usuarioLogueado", usuarioLogueado);
-			return"redirect:/home";			
-		}else {
-			redirectAttributes.addAttribute("error", "Usuario o contraseña incorrecta.");
-			return"redirect:/login";
+	public String mostrarFormularioLoguin(Model model, HttpSession session) {
+		if(session.getAttribute("usuarioLogueado")!=null) {
+			return"redirect:/home";
+			
 		}
-		
+		model.addAttribute("loguin", new Loguin());
+		return "loginn";
 	}
+
+	// PARA VALIDAR Y GUARDAR SESION DE LOGUIN
+	//FALTA IMPLEMENTAR
 	
-	//METODO PARA CERRAR SECION
-	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();//ELIMINA LOS ATIIBUS DE LA SESSION
-		return"redirect:/login";
-	}
+	
+	
 
 }
