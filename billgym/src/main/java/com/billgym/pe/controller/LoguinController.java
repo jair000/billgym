@@ -1,5 +1,6 @@
 package com.billgym.pe.controller;
 
+import java.net.ResponseCache;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.billgym.pe.entity.Loguin;
 import com.billgym.pe.service.LoguinService;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -114,12 +116,28 @@ public class LoguinController {
 	
 	// MOSTRAR HOME SOLO SI ESTÁ LOGUEADO
 	@GetMapping("/home")
-	public String mostrarHome(Model model, HttpSession session) {
+	public String mostrarHome(Model model, HttpSession session, HttpServletResponse response ) {
 		if (session.getAttribute("usuarioLogueado") == null) {
 			return "redirect:/login";
 		}
-		model.addAttribute("mensaje", "Bienvenido al portal Bill Gym 💪");
+		
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0);
+		
+		
+		Loguin usuario = (Loguin) session.getAttribute("usuarioLogueado");
+		String nombreCompleto = (usuario.getUsuarioDato()!=null)
+				? usuario.getUsuarioDato().getNombres()
+				:usuario.getUsuario();
+	    model.addAttribute("nombreUsuario", nombreCompleto);
 		return "home"; 
+	}
+	
+	@GetMapping("/logout")
+	public String cerrarSesion(HttpSession session) {
+	    session.invalidate();
+	    return "redirect:/login";
 	}
 
 

@@ -39,13 +39,24 @@
 						th:href="@{/maquinas}">Maquinas</a></li>
 					<li class="nav-item"><a class="nav-link"
 						th:href="@{/loguinTabla}">Loguin</a></li>
-
 					<li class="nav-item"><a class="nav-link" th:href="@{/delta}">Delta</a></li>
-
-
-
 				</ul>
-				
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle d-flex align-items-center text-white"
+						href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+						aria-expanded="false"> <i
+							class="bi bi-person-circle fs-5 me-1"></i> <span
+							th:text="${nombreUsuario}">Usuario</span>
+					</a>
+						<ul class="dropdown-menu dropdown-menu-end"
+							aria-labelledby="userDropdown">
+							<li><a class="dropdown-item" th:href="@{/logout}">Cerrar
+									sesión</a></li>
+						</ul></li>
+				</ul>
+
+
 
 			</div>
 		</div>
