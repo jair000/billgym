@@ -120,7 +120,7 @@ public class LoguinController {
 		if (session.getAttribute("usuarioLogueado") == null) {
 			return "redirect:/login";
 		}
-		
+		//PARA QUE CUANDO EL USUARIO RETROCEDE NO ESTE  LOGUEADO EL PAGINA BORRA EL CACHE
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Expires", 0);

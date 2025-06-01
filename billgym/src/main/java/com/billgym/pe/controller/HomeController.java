@@ -15,6 +15,11 @@ public class HomeController {
 			return"sobreNosotros";
 		}
 		
+		@GetMapping("/soporte")
+		public String mostrarSoporte(Model model) {
+			model.addAttribute("mensaje"," Desde controller soporte tecnico");
+			return"soporte";
+		}
 		
 
 }
