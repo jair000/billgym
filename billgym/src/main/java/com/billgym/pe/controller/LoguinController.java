@@ -83,17 +83,46 @@ public class LoguinController {
 	// PARA LOGUEARSE EL USUARIO
 	@GetMapping("/login")
 	public String mostrarFormularioLoguin(Model model, HttpSession session) {
-		if(session.getAttribute("usuarioLogueado")!=null) {
-			return"redirect:/home";
-			
-		}
-		model.addAttribute("loguin", new Loguin());
-		return "loginn";
+	    if(session.getAttribute("usuarioLogueado") != null) {
+	        return "redirect:/home";
+	    }
+	    model.addAttribute("loguin", new Loguin()); 
+	    
+	    return "formularioLogin";
 	}
 
 	// PARA VALIDAR Y GUARDAR SESION DE LOGUIN
 	//FALTA IMPLEMENTAR
+	@PostMapping("/login")
+	public String procesarLogin(@ModelAttribute("loguin") Loguin loguin,
+	                            HttpSession session,
+	                            RedirectAttributes redirectAttributes,
+	                            Model model) {
+
+	    Loguin usuarioValido = loguinService.validarCredenciales(loguin.getUsuario(), loguin.getPassword());
+
+	    if (usuarioValido != null) {
+	        session.setAttribute("usuarioLogueado", usuarioValido);
+	        return "redirect:/home";
+	    } else {
+	        model.addAttribute("error", "Usuario o contraseña incorrectos");
+	        model.addAttribute("loguin", loguin);
+	        return "formularioLogin"; 
+	    }
+	}
 	
+	
+	// MOSTRAR HOME SOLO SI ESTÁ LOGUEADO
+	@GetMapping("/home")
+	public String mostrarHome(Model model, HttpSession session) {
+		if (session.getAttribute("usuarioLogueado") == null) {
+			return "redirect:/login";
+		}
+		model.addAttribute("mensaje", "Bienvenido al portal Bill Gym 💪");
+		return "home"; 
+	}
+
+
 	
 	
 
