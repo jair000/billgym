@@ -6,7 +6,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.billgym.pe.entity.Usuario;
-import com.billgym.pe.exeption.DniDuplicadoExeption;
+import com.billgym.pe.exception.DniDuplicadoException;
 import com.billgym.pe.repository.UsuarioRepository;
 
 @Service
@@ -34,7 +34,7 @@ public class UsuarioService {
 		try {
 			usuarioRepository.save(usuario);
 		} catch (DataIntegrityViolationException e) {
-			throw new DniDuplicadoExeption("El DNI: "+usuario.getDni()+"Ya Existe :");
+			throw new DniDuplicadoException("El DNI: "+usuario.getDni()+"Ya Existe :");
 		}		
 	}
 	

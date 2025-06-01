@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.billgym.pe.entity.RolUsuario;
 import com.billgym.pe.entity.Usuario;
-import com.billgym.pe.exeption.DniDuplicadoExeption;
+import com.billgym.pe.exception.DniDuplicadoException;
 import com.billgym.pe.service.UsuarioService;
 
 @Controller
@@ -51,7 +51,7 @@ public class UsuarioController {
 			usuarioService.guardarUsuario(usuario);
 			redirectAttributes.addFlashAttribute("mensaje", "Usuario Actualizado Correctamente :");
 			return"redirect:/usuarios";
-		} catch (DniDuplicadoExeption e) {
+		} catch (DniDuplicadoException e) {
 			redirectAttributes.addFlashAttribute("errorDni", e.getMessage());
 			return"redirect:/usuarios/edit"+usuario.getId();
 		}
@@ -71,7 +71,7 @@ public class UsuarioController {
 		try {
 			usuarioService.guardarUsuario(usuario);
 			return"redirect:/usuarios";
-		} catch (DniDuplicadoExeption e) {
+		} catch (DniDuplicadoException e) {
 			model.addAttribute("errorDni",e.getMessage());
 			model.addAttribute("usuario", usuario);
 			return"crearUsuario";

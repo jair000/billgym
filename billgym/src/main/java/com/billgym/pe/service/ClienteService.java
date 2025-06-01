@@ -6,7 +6,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.billgym.pe.entity.Cliente;
-import com.billgym.pe.exeption.DniDuplicadoExeption;
+import com.billgym.pe.exception.DniDuplicadoException;
 import com.billgym.pe.repository.ClienteRepository;
 
 @Service
@@ -34,7 +34,7 @@ public class ClienteService {
 		 try {
 			clienteRepository.save(cliente);
 		} catch (DataIntegrityViolationException e) {
-			throw  new DniDuplicadoExeption("EL DNI :"+ cliente.getDni()+" Ya existe");
+			throw  new DniDuplicadoException("EL DNI :"+ cliente.getDni()+" Ya existe");
 			// TODO: handle exception
 		}
 		

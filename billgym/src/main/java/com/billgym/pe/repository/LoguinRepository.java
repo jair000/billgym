@@ -9,11 +9,14 @@ import org.springframework.data.repository.query.Param;
 import com.billgym.pe.entity.Loguin;
 
 public interface LoguinRepository extends JpaRepository<Loguin, Integer> {
-	//PARA BUSCAR USUARIO POR DNI
-	@Query("SELECT l FROM Loguin l JOIN l.usuarioDato u WHERE u.dni = :dni")
-	List<Loguin> buscarPorDniUsuario(@Param("dni")String usuario);
-	
-	//PARA VALIDAR CONTRASEÑA
-	 Loguin findByUsuarioAndPassword(String usuario, String password);
+    //PARA BUSCAR USUARIO POR DNI
 
+    @Query("SELECT l FROM Loguin l JOIN l.usuarioDato u WHERE u.dni = :dni")
+    List<Loguin> buscarPorDniUsuario(@Param("dni") String usuario);
+
+    //PARA VALIDAR CONTRASEÑA
+    Loguin findByUsuarioAndPassword(String usuario, String password);
+
+    // PARA VALIDAR POR USUARIO
+    Loguin findByUsuario(String usuario);
 }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Bill Gym</title>
@@ -10,54 +9,65 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-	<nav th:fragment="navbar"
-		class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-				aria-controls="navbarTogglerDemo01" aria-expanded="false"
-				aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"
+				aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
 
-				<a class="navbar-brand" th:href="@{/home}"><img
-					th:src="@{/img/logo_nombre.png}" alt="Logo BillGym" height="30"></a>
+				<a class="navbar-brand" th:href="@{/home}">
+					<img th:src="@{/img/logo_nombre.png}" alt="Logo BillGym" height="30">
+				</a>
 
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" th:href="@{/home}">Inicio</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/sobreNosotros}">Sobre Nosotros</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/clientes}">Cliente</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/usuarios}">Usuarios</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/productos}">Productos</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/maquinas}">Maquinas</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/loguinTabla}">Loguin</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/delta}">Delta</a></li>
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" th:href="@{/home}">Inicio</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/sobreNosotros}">Sobre Nosotros</a>
+					</li>
+
+					<!-- CLIENTES: todos excepto LIMPIEZA -->
+					<li class="nav-item" th:if="${session.usuarioLogueado.usuarioDato.rol != 'LIMPIEZA'}">
+						<a class="nav-link" th:href="@{/clientes}">Cliente</a>
+					</li>
+
+					<!-- USUARIOS: solo GERENTE_GENERAL y SUPERVISOR -->
+					<li class="nav-item" th:if="${#lists.contains({'GERENTE_GENERAL','SUPERVISOR'}, session.usuarioLogueado.usuarioDato.rol)}">
+						<a class="nav-link" th:href="@{/usuarios}">Usuarios</a>
+					</li>
+
+					<!-- PRODUCTOS: GERENTE_GENERAL, RECEPCIONISTA, SUPERVISOR -->
+					<li class="nav-item" th:if="${#lists.contains({'GERENTE_GENERAL','RECEPCIONISTA','SUPERVISOR'}, session.usuarioLogueado.usuarioDato.rol)}">
+						<a class="nav-link" th:href="@{/productos}">Productos</a>
+					</li>
+
+					<!-- MAQUINAS: todos los roles -->
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/maquinas}">Maquinas</a>
+					</li>
+
+					<!-- DELTA: solo GERENTE_GENERAL -->
+					<li class="nav-item" th:if="${session.usuarioLogueado.usuarioDato.rol == 'GERENTE_GENERAL'}">
+						<a class="nav-link" th:href="@{/delta}">Delta</a>
+					</li>
 				</ul>
+
 				<ul class="navbar-nav ms-auto">
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle d-flex align-items-center text-white"
-						href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
-						aria-expanded="false"> <i
-							class="bi bi-person-circle fs-5 me-1"></i> <span
-							th:text="${nombreUsuario}">Usuario</span>
-					</a>
-						<ul class="dropdown-menu dropdown-menu-end"
-							aria-labelledby="userDropdown">
-							<li><a class="dropdown-item" th:href="@{/logout}">Cerrar
-									sesión</a></li>
-						</ul></li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle d-flex align-items-center text-white" href="#"
+							id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="bi bi-person-circle fs-5 me-1"></i>
+							<span th:text="${nombreUsuario}">Usuario</span>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+							<li><a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
+						</ul>
+					</li>
 				</ul>
-
-
-
 			</div>
 		</div>
 	</nav>

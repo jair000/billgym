@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.billgym.pe.entity.Cliente;
-import com.billgym.pe.exeption.DniDuplicadoExeption;
+import com.billgym.pe.exception.DniDuplicadoException;
 import com.billgym.pe.service.ClienteService;
 
 @Controller
@@ -48,7 +48,7 @@ public class ClienteController {
 			clienteService.guardarCliente(cliente);
 			redirectAttributes.addFlashAttribute("mensaje", "Cliente actualizado Correctamente :");
 			return "redirect:/clientes";
-		} catch (DniDuplicadoExeption e) {
+		} catch (DniDuplicadoException e) {
 			redirectAttributes.addFlashAttribute("errorDni", e.getMessage());
 			return"redirect:/clientes/edit/"+cliente.getId();
 		}
@@ -68,7 +68,7 @@ public class ClienteController {
 		try {
 			clienteService.guardarCliente(cliente);
 			return"redirect:/clientes";
-		} catch (DniDuplicadoExeption e) {
+		} catch (DniDuplicadoException e) {
 			model.addAttribute( "errorDni",e.getMessage());
 			model.addAttribute("cliente", cliente);
 			return "crearCliente";

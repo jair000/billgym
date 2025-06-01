@@ -9,6 +9,9 @@
 
 </head>
 <body class="d-flex flex-column min-vh-100">
+        <div th:if="${session.usuarioLogueado != null}">
+	<span th:text="'Rol actual: ' + ${session.usuarioLogueado.usuarioDato.rol}"></span>
+</div>
 
 	<!-- NAVBAR -->
 	<div th:insert="~{home :: navbar}"></div>
@@ -68,9 +71,9 @@
 
 						</td>
 						<td><span th:switch="${usuario.id_sede}"> <span
-								th:case="1">Surco</span> <span th:case="2">Norte</span> <span
-								th:case="3">Sur</span> <span th:case="4">Cusco</span> <span
-								th:case="5">Huanuco</span> <span th:case="6">Central</span>
+								th:case="1">Central</span> <span th:case="2">San Isidro</span> <span
+								th:case="3">Miraflores</span> <span th:case="4">Surco</span> <span
+								th:case="5">La Molina</span> <span th:case="6">Callao</span>
 
 						</span></td>
 						<td><a th:href="@{/usuarios/edit/{id}(id=${usuario.id})}"
