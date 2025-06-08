@@ -16,9 +16,17 @@
 		<div class="container mt-5">
 			<h2 class="mb-4">Lista de Usuarios</h2>
 			<!-- Enlace para crear un nuevo usuario -->
+			
+			
 			<a th:href="@{/usuarios/crear}" class="btn btn-success mb-3">Crear
-				+</a> <a th:href="@{/loguinTabla}"
-				class="btn btn-info mb-3">Registrar Usuario</a>
+				+</a> 
+				<!-- <a th:href="@{/loguinTabla}"
+				class="btn btn-info mb-3">Registrar Usuario</a>  -->
+				
+				
+				<a href="#" class="btn btn-info mb-3">Registrar Usuario</a>
+				
+				
 			<!-- PARA BUSCAR USIARIOS-->
 			<div class="d-flex justify-content-end">
 				<form class="d-flex" th:action="@{/usuarios/buscar}" method="get">
