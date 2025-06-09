@@ -36,7 +36,11 @@ body::before{
 .login-wrapper{
 	width: 400px;
 	padding: 30px 30px 30px;
+<<<<<<< HEAD
 	border: 1px solid rgba(255,255,255, 0.5);
+=======
+	border: 1px solid; rgba(255,255,255, 0.5);
+>>>>>>> 78748995011bbfcb86b1450f2a3d22a04e51bde5
 	border-radius: 8px;
 	backdrop-filter: blur(8px);
 	-webkit-backdrop-filter:blur(8px);

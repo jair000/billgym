@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<<<<<<< HEAD
     <head>
         <meta charset="UTF-8">
         <title>Inicio sesión</title>
@@ -34,4 +35,59 @@
         <script src="/js/bootstrap.bundle.min.js"></script>
 
     </body>
+=======
+<head>
+<meta charset="UTF-8">
+<title>Inicio sesión</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/formularioLoguin.css}">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+
+
+
+	<div class="login-wrapper">
+		<div class="login-header">
+			<h2>Bienvenido al portal Billgym 😎</h2>
+			<h3>Por favor ingresa las credenciales</h3>
+		</div>
+		<form th:action="@{/login}" method="post" th:object="${loguin}">
+
+			<div class="input-field">
+				<input type="text" id="usuario" th:field="*{usuario}"
+					placeholder=" " required> <label for="usuario">Usuario</label>
+			</div>
+
+			<div class="input-field">
+				<input type="password" id="password" th:field="*{password}"
+					placeholder=" " required> <label for="password">Contraseña</label>
+			</div>
+
+			<div th:if="${error}" class="alert alert-danger" role="alert"
+				th:text="${error}"></div>
+
+			<button type="submit" class="btn btn-primary">Ingresar</button>
+		</form>
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+	<script src="/js/bootstrap.bundle.min.js"></script>
+
+</body>
+>>>>>>> 78748995011bbfcb86b1450f2a3d22a04e51bde5
 </html>
