@@ -60,6 +60,12 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- Para Thymeleaf + Spring Security -->
+		
+		
+		
+		
+
+
 <dependency>
     <groupId>org.thymeleaf.extras</groupId>
     <artifactId>thymeleaf-extras-springsecurity6</artifactId> <!-- o springsecurity5 según versión -->
