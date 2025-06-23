@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . .
 RUN mvn clean install -DskipTests
 
-# Etapa 2: correr la aplicación
+# Etapa 2: correr la aplicación modificacion para funcion de java en render
 FROM openjdk:17-jdk-slim
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
