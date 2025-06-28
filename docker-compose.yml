@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  billgym:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://sql10.freesqldatabase.com:3306/sql10786173?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: sql10786173
+      SPRING_DATASOURCE_PASSWORD: bH4gXp4a6k

@@ -1,0 +1,10 @@
+# Ignorar todo lo de target excepto el app.jar
+target/*
+!target/app.jar
+
+# Ignorar carpetas y archivos innecesarios
+.git
+.gitignore
+README.md
+Dockerfile
+*.zip
