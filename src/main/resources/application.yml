@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://sql10.freesqldatabase.com:3306/sql10786173?useSSL=false&serverTimezone=UTC
+    username: sql10786173
+    password: bH4gXp4a6k
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+  thymeleaf:
+    cache: false
