@@ -1,107 +1,117 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-<meta charset="UTF-8">
-<title>Bill Gym</title>
-<link href="/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-</head>
-<body class="d-flex flex-column min-vh-100">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="UTF-8">
+        <title>Bill Gym</title>
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
+    <body class="d-flex flex-column min-vh-100">
 
-	<nav th:fragment="navbar"
-		class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class="container-fluid">
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-				aria-controls="navbarTogglerDemo01" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <nav th:fragment="navbar"
+             class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+                        aria-controls="navbarTogglerDemo01" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
 
-				<a class="navbar-brand" th:href="@{/home}"><img
-					th:src="@{/img/varesina-logo.png}" alt="Logo BillGym" height="30"></a>
+                    <a class="navbar-brand" th:href="@{/home}"><img
+                            th:src="@{/img/varesina-logo.png}" alt="Logo BillGym" height="30"></a>
 
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" th:href="@{/home}">Inicio</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/sobreNosotros}">Sobre Nosotros</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/clientes}">Cliente</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/usuarios}">Usuarios</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/productos}">Productos</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/maquinas}">Maquinas</a></li>
-					<!-- <li class="nav-item"><a class="nav-link"
-						th:href="@{/loguinTabla}">Loguin</a></li> -->
-					<li class="nav-item"><a class="nav-link" href="#">Loguin</a></li>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active"
+                                                aria-current="page" th:href="@{/home}">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link"
+                                                th:href="@{/sobreNosotros}">Sobre Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link"
+                                                th:href="@{/clientes}" th:if="${rolUsuario == 'PRESIDENTE_FUNDADOR' or rolUsuario == 'GERENTE_OPRACIONES'}">Cliente</a></li>
+                        <li class="nav-item"><a class="nav-link"
+                                                th:href="@{/usuarios}" th:if="${rolUsuario == 'PRESIDENTE_FUNDADOR'}">Usuarios</a></li>
+                        <li class="nav-item"><a class="nav-link"
+                                                th:href="@{/productos}" >Productos</a></li>
+                        <li class="nav-item"><a class="nav-link"
+                                                th:href="@{/maquinas}" th:if="${rolUsuario == 'PRESIDENTE_FUNDADOR'}">Maquinas</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link"
+                                th:href="@{/loguinTabla}">Loguin</a></li> -->
+                        <!-- <li class="nav-item"><a class="nav-link" href="#" th:if="${rolUsuario == 'GERENTE_GENERAL'}">Loguin</a></li> -->
 
-					<li class="nav-item"><a class="nav-link" th:href="@{/delta}">Delta</a></li>
-				</ul>
-				<ul class="navbar-nav ms-auto">
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle d-flex align-items-center text-white"
-						href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
-						aria-expanded="false"> <i
-							class="bi bi-person-circle fs-5 me-1"></i> <span
-							th:text="${nombreUsuario}">Usuario</span>
-					</a>
-						<ul class="dropdown-menu dropdown-menu-end"
-							aria-labelledby="userDropdown">
-							<li><a class="dropdown-item" th:href="@{/logout}">Cerrar
-									sesión</a></li>
-						</ul></li>
-				</ul>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/delta}" th:if="${rolUsuario == 'PRESIDENTE_FUNDADOR'}">Delta</a></li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown"><a
+                                class="nav-link dropdown-toggle d-flex align-items-center text-white"
+                                href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false"> <i
+                                    class="bi bi-person-circle fs-5 me-1"></i> <span th:text="${nombreUsuario}">Usuario</span>
+                                <br>
 
-
-
-			</div>
-		</div>
-	</nav>
-
-	<!-- TODO EL CONTENIDO DE HOME -->
-	<div class="container mt-5 d-flex justify-content-center">
-		<div class="form-container col-md-8">
-			<h1 class="text-primary text-center mb-4">Bienvenido a la
-				pagiina de inicio 😎</h1>
-			<h1 class="text-primary text-center mb-4">de La Varesina sa 😎</h1>
-		</div>
-	</div>
-
-	<!-- FOOTER -->
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end"
+                                aria-labelledby="userDropdown">
+                                <li>
+                                    <span class="dropdown-item-text text-muted">
+                                        Usted es: <strong th:text="${rolUsuario}">ROL</strong>
+                                    </span>
+                                </li>
+                                <li><hr class="dropdown-divider"/></li>
+                                <li>
+                                    <a class="dropdown-item" th:href="@{/logout}">Cerrar
+                                        sesión</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
 
 
 
-	<footer th:fragment="footer" class="bg-dark py-3 mt-auto">
-		<div class="container">
-			<div class="row align-items-center">
-				<div class="col-md-6 text-center text-md-start">
-					<p class="mb-0 text-light">&copy; 2025 Ermenigildo Orbezo. Todos los
-						derechos reservados.</p>
-				</div>
-				<div class="col-md-6 text-center text-md-end">
-					<ul class="list-inline mb-0">
-						<li class="list-inline-item ms-3"><a th:href="@{/soporte}"
-							class="text-light">Soporte Tecnico</a></li>
-						<li class="list-inline-item"><a
-							href="/politica-de-privacidad" class="text-light">Política de
-								Privacidad</a></li>
-						<li class="list-inline-item ms-3"><a
-							href="/terminos-y-condiciones" class="text-light">Términos y
-								Condiciones</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</footer>
+                </div>
+            </div>
+        </nav>
+
+        <!-- TODO EL CONTENIDO DE HOME -->
+        <div class="container mt-5 d-flex justify-content-center">
+            <div class="form-container col-md-8">
+                <h1 class="text-primary text-center mb-4">Bienvenido a la
+                    pagiina de inicio 😎</h1>
+                <h1 class="text-primary text-center mb-4">de La Varesina sa 😎</h1>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
 
 
 
-	<script src="/js/bootstrap.bundle.min.js"></script>
-</body>
+        <footer th:fragment="footer" class="bg-dark py-3 mt-auto">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start">
+                        <p class="mb-0 text-light">&copy; 2025 Ermenigildo Orbezo. Todos los
+                            derechos reservados.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item ms-3"><a th:href="@{/soporte}"
+                                                                 class="text-light">Soporte Tecnico</a></li>
+                            <li class="list-inline-item"><a
+                                    href="/politica-de-privacidad" class="text-light">Política de
+                                    Privacidad</a></li>
+                            <li class="list-inline-item ms-3"><a
+                                    href="/terminos-y-condiciones" class="text-light">Términos y
+                                    Condiciones</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+
+        <script src="/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>

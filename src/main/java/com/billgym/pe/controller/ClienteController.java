@@ -12,84 +12,99 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.billgym.pe.entity.Cliente;
+import com.billgym.pe.entity.Loguin;
+import com.billgym.pe.entity.RolUsuario;
 import com.billgym.pe.exeption.DniDuplicadoExeption;
 import com.billgym.pe.service.ClienteService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ClienteController {
 
     private final ClienteService clienteService;
-	
-	
-	public ClienteController(ClienteService clienteService) {
-		this.clienteService = clienteService;	
-	}
-	//LISTAR CLIENTE
-	@GetMapping("/clientes")
-	public String obtenerCliente(Model model) {
-		List<Cliente> clientes =clienteService.listarClientes();
-		model.addAttribute("clientes",clientes);
-		return "clientes";
-		
-	}
-	//EDITAR CLIENTE
-	@GetMapping("/clientes/edit/{id}")
-	public String editarCliente(@PathVariable("id")Integer id, Model model) {
-		Cliente cliente = clienteService.obtenerCliente(id);
-		model.addAttribute("cliente",cliente);
-		return"editarCliente";
-	}
-	
-	//ACTUALIZAR CLIENTE
-	@PostMapping("/clientes/actualizar")
-	public String actualizarCliente(@ModelAttribute("cliente") Cliente cliente, RedirectAttributes redirectAttributes) {
-		
-		try {
-			clienteService.guardarCliente(cliente);
-			redirectAttributes.addFlashAttribute("mensaje", "Cliente actualizado Correctamente :");
-			return "redirect:/clientes";
-		} catch (DniDuplicadoExeption e) {
-			redirectAttributes.addFlashAttribute("errorDni", e.getMessage());
-			return"redirect:/clientes/edit/"+cliente.getId();
-		}
-		
-	}
-	
-	//CREAR CLIENTE
-	@GetMapping("/clientes/agregar")
-	public String agregarCliente(Model model) {
-		model.addAttribute("cliente", new Cliente());
-		return"crearCliente";
-	}
-	
-	//GUARDAR CLIENTE
-	@PostMapping("/clientes/guardar")
-	public String guardaCliente(@ModelAttribute("cliente") Cliente cliente, Model model) {
-		try {
-			clienteService.guardarCliente(cliente);
-			return"redirect:/clientes";
-		} catch (DniDuplicadoExeption e) {
-			model.addAttribute( "errorDni",e.getMessage());
-			model.addAttribute("cliente", cliente);
-			return "crearCliente";
-		}
-		
-	}
-	
-	//ELIMINAR CLIENTE
-	@GetMapping("/clientes/eliminar/{id}")
-	public String eliminarCliente(@PathVariable("id") Integer id) {
-		clienteService.eliminarCliente(id);
-		return"redirect:/clientes";
-	}
-	
-	//BUSCAR CLIENTE POR SU DNI
-	@GetMapping("/clientes/buscar")
-	 public String buscarCliente(@RequestParam("buscar")String terminoBusqueda, Model model) {
-		 List<Cliente> resultados = clienteService.buscar(terminoBusqueda);
-		 model.addAttribute("clientes",resultados);
-		 return"clientes";
-	 }
 
+    public ClienteController(ClienteService clienteService) {
+        this.clienteService = clienteService;
+    }
+    //LISTAR CLIENTE
+
+    @GetMapping("/clientes")
+    public String obtenerCliente(Model model, HttpSession session) {
+        // 1. Verifica si hay sesión iniciada
+        Loguin usuario = (Loguin) session.getAttribute("usuarioLogueado");
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+
+        // 2. Verifica el rol del usuario
+        RolUsuario rol = usuario.getUsuarioDato().getRol();
+        if (!(rol == RolUsuario.PRESIDENTE_FUNDADOR || rol == RolUsuario.GERENTE_OPRACIONES)) {
+            return "redirect:/home"; // No tiene acceso
+        }
+
+        // 3. Si está autorizado, mostrar la lista de clientes
+        List<Cliente> clientes = clienteService.listarClientes();
+        model.addAttribute("clientes", clientes);
+        return "clientes";
+    }
+    //EDITAR CLIENTE
+
+    @GetMapping("/clientes/edit/{id}")
+    public String editarCliente(@PathVariable("id") Integer id, Model model) {
+        Cliente cliente = clienteService.obtenerCliente(id);
+        model.addAttribute("cliente", cliente);
+        return "editarCliente";
+    }
+
+    //ACTUALIZAR CLIENTE
+    @PostMapping("/clientes/actualizar")
+    public String actualizarCliente(@ModelAttribute("cliente") Cliente cliente, RedirectAttributes redirectAttributes) {
+
+        try {
+            clienteService.guardarCliente(cliente);
+            redirectAttributes.addFlashAttribute("mensaje", "Cliente actualizado Correctamente :");
+            return "redirect:/clientes";
+        } catch (DniDuplicadoExeption e) {
+            redirectAttributes.addFlashAttribute("errorDni", e.getMessage());
+            return "redirect:/clientes/edit/" + cliente.getId();
+        }
+
+    }
+
+    //CREAR CLIENTE
+    @GetMapping("/clientes/agregar")
+    public String agregarCliente(Model model) {
+        model.addAttribute("cliente", new Cliente());
+        return "crearCliente";
+    }
+
+    //GUARDAR CLIENTE
+    @PostMapping("/clientes/guardar")
+    public String guardaCliente(@ModelAttribute("cliente") Cliente cliente, Model model) {
+        try {
+            clienteService.guardarCliente(cliente);
+            return "redirect:/clientes";
+        } catch (DniDuplicadoExeption e) {
+            model.addAttribute("errorDni", e.getMessage());
+            model.addAttribute("cliente", cliente);
+            return "crearCliente";
+        }
+
+    }
+
+    //ELIMINAR CLIENTE
+    @GetMapping("/clientes/eliminar/{id}")
+    public String eliminarCliente(@PathVariable("id") Integer id) {
+        clienteService.eliminarCliente(id);
+        return "redirect:/clientes";
+    }
+
+    //BUSCAR CLIENTE POR SU DNI
+    @GetMapping("/clientes/buscar")
+    public String buscarCliente(@RequestParam("buscar") String terminoBusqueda, Model model) {
+        List<Cliente> resultados = clienteService.buscar(terminoBusqueda);
+        model.addAttribute("clientes", resultados);
+        return "clientes";
+    }
 
 }
